@@ -1,0 +1,28 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--配置被代理对象-->
+    <bean id="UserService" class="com.example.spring.UserServiceImpl"/>
+
+    <!--配置通知-->
+    <bean id="myAdvice" class="com.example.spring.aopxml.MyAdvice"/>
+
+    <!--aop配置，将会生成代理对象，生成的代理对象是将通知和原对象进行整合-->
+    <aop:config>
+        <!--配置切点表达式，指定为哪些类的方法增强-->
+        <aop:pointcut id="pc" expression="execution(* com.example.spring.UserServiceImpl.*(..))"/>
+        <!--配置增强哪种通知-->
+        <aop:aspect ref="myAdvice">
+            <aop:before method="before" pointcut-ref="pc"/>
+            <aop:after-returning method="afterReturnning" pointcut-ref="pc"/>
+            <aop:after method="after" pointcut-ref="pc"/>
+            <aop:around method="around" pointcut-ref="pc"/>
+            <aop:after-throwing method="excep" pointcut-ref="pc"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

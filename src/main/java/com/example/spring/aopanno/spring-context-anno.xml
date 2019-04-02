@@ -1,0 +1,16 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--配置被代理对象-->
+    <bean id="UserService" class="com.example.spring.UserServiceImpl"/>
+
+    <!--配置通知-->
+    <bean id="myAdvice" class="com.example.spring.aopanno.MyAdvice"/>
+    <!--aop配置，将会生成代理对象，生成的代理对象是将通知和原对象进行整合，这个过程通过注解来完成-->
+    <aop:aspectj-autoproxy/>
+</beans>
